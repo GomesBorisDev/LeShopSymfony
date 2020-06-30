@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}LeShop{% endblock %}
+
+{% block body %}
+
+    <h1>SIGN UP ! ✅</h1>
+
+    {{ form_start(form) }}
+
+        {{ form_row(form.username, {'attr': {'placeholder': 'Username'}}) }}
+        {{ form_row(form.email, {'attr': {'placeholder': 'Email'}}) }}
+        {{ form_row(form.password, {'attr': {'placeholder': 'Password'}}) }}
+        {{ form_row(form.confirm_password, {'attr': {'placeholder': 'Confirm Password'}}) }}
+
+        <button type="submit">SignUp</button>
+
+    {{ form_end(form) }}
+
+{% endblock %}
