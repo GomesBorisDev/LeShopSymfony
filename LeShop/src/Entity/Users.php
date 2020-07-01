@@ -4,12 +4,17 @@ namespace App\Entity;
 
 use App\Repository\UsersRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass=UsersRepository::class)
+ * @UniqueEntity(
+ *  fields={"email"},
+ *  message="Email already used in DB !")
  */
-class Users
+class Users implements UserInterface
 {
     /**
      * @ORM\Id()
@@ -25,18 +30,19 @@ class Users
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Email()
      */
     private $email;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\Length(min=8, minMessage="Minimum 8 characters")
+     * @Assert\Length(min=6, minMessage="Minimum 6 characters !")
      * @Assert\EqualTo(propertyPath="confirm_password")
      */
     private $password;
 
     /**
-     * @Assert\EqualTo(propertyPath="password", message="Must be exactly equal to password")
+     * @Assert\EqualTo(propertyPath="password", message="Must be exactly equal to password !")
      */
     private $confirm_password;
 
@@ -91,5 +97,20 @@ class Users
         $this->confirm_password = $confirm_password;
 
         return $this;
+    }
+
+    public function eraseCredentials()
+    {
+        
+    }
+
+    public function getSalt()
+    {
+        
+    }
+
+    public function getRoles()
+    {
+        return ['ROLE_USER'];
     }
 }
