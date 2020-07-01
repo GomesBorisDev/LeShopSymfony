@@ -47,4 +47,12 @@ class SecurityController extends AbstractController
         return $this->render('users/login.html.twig', [
         ]);
     }
+
+    /**
+     * @Route("/userLogout", name="userLogout")
+     */
+    public function userLogout()
+    {
+        
+    }
 }
